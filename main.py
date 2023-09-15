@@ -80,7 +80,7 @@ st.write("")
 st.write("* These are meant as more of a baseline. They aren't adjusted for injuries to teammates, trades, "
         "coaching changes, etc.")
 st.write("")
-st.write("* The projections look back 8 weeks. For players who don't have 8 weeks of data (Rookies), missing data"
+st.write("* The projections look back 8 weeks. For players who don't have 8 weeks of data (Rookies), missing data "
         "is input as league average at their position. For this reason Rookies, and players with dramatic"
         "changes in team or role will lag. Use your own knowledge of the league when viewing")
 st.write("")
