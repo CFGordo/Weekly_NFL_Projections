@@ -4,6 +4,10 @@ import agstyler
 from agstyler import PINLEFT, draw_grid
 from enum import Enum
 
+import dash
+from dash import Dash, html, dcc, dash_table
+import dash_ag_grid as dag
+#import dash_bootstrap_components as dbc
 
 st.title("🏈 Weekly NFL Projections 🏈")
 
@@ -28,6 +32,33 @@ condition_one_value = "params.value >= 15"
 condition_two_value = "params.value == 1.2023"
 condition_three_value = "params.value >=2.6"
 
+
+df = projections_db
+
+app = dash.Dash(__name__)
+
+app.layout = dash_table.DataTable(df.to_dict('records'), [{"name": i, "id": i} for i in df.columns])
+
+if __name__ == "__main__":
+    app.run_server(debug=True, use_reloader=True)
+
+defaultColDef={
+      "resizable": True,
+      "sortable": True,
+      "filter": True,
+      "editable": False
+}
+
+getRowStyle1 = {
+    "styleConditions": [
+        {
+            "condition": "params.data.Last Observed Week.Season != 1.2023",
+            "style": {"backgroundColor": "lavenderblush"},
+        },
+    ]
+}
+
+'''
 formatter = {
     'Name': ('Name', {**PINLEFT, 'width': 70}),
     'Roster Position': ('Roster Position', {'width': 70}),
@@ -67,3 +98,4 @@ data = draw_grid(
     filterable=False,
     max_height=400
 )
+'''
