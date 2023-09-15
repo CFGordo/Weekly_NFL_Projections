@@ -88,5 +88,5 @@ st.write("* Some role players with a few spike weeks may be inflated. For this r
         "& season, and points scored of the last recorded game for each player.")
 st.write("")
 st.write("* If the above notes haven't convinced you that these projections aren't all that sharp, allow me to "
-        "remove all doubt - These projections aren't all that sharp. For the love of God don't use these to gamble "
+        "remove all doubt - These projections aren't all that sharp. For the love of God don't use them to gamble "
         "large sums of money.")
