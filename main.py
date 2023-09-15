@@ -53,7 +53,8 @@ def color_green2(value):
         color = 'white'
 
 
-st.dataframe(projections_db.hide_index().style.applymap(
+projections_db.set_index('Name', inplace=True)
+st.dataframe(projections_db.style.applymap(
     color__red, subset=['Last Observed Week.Season']).applymap(color_green2,
                                                                subset=['pred_PPR',
                                                                        'Last Observed Pts PPR']).applymap(
