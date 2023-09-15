@@ -18,7 +18,7 @@ def color__red(value):
   """
 
     if value != 1.2023:
-        color = 'purple'
+        color = 'violet'
     else:
         color = 'white'
 
@@ -33,7 +33,7 @@ def color_green(value):
     if value > 2.6:
         color = 'green'
     elif value < 1.8:
-        color = 'purple'
+        color = 'violet'
     else:
         color = 'white'
 
@@ -48,7 +48,7 @@ def color_green2(value):
     if value > 20:
         color = 'green'
     elif value < 15:
-        color = 'lime'
+        color = 'light green'
     else:
         color = 'white'
 
@@ -57,7 +57,8 @@ projections_db.set_index('Name', inplace=True)
 st.dataframe(projections_db.style.applymap(
     color__red, subset=['Last Observed Week.Season']).applymap(color_green2,
                                                                subset=['pred_PPR',
-                                                                       'Last Observed Pts PPR']).applymap(
+                                                                       'Last Observed Pts PPR',
+                                                                       'AvgPointsPerGame']).applymap(
                                                                         color_green, subset=['Pt_per_$1k (projected)']))
 
 st.text("")
