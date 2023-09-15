@@ -57,7 +57,7 @@ st.dataframe(projections_db.style.applymap(
     color__red, subset=['Last Observed Week.Season']).applymap(color_green2,
                                                                subset=['pred_PPR',
                                                                        'Last Observed Pts PPR']).applymap(
-                                                                        color_green, subset=['Pts_per_$1k']))
+                                                                        color_green, subset=['Pt_per_$1k (projected)']))
 
 st.text("")
 st.markdown("<p class='small-font'> Author= CFGordo </p>", unsafe_allow_html=True)
