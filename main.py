@@ -24,32 +24,33 @@ class Color(Enum):
     RED_LIGHT = "rgb(120, 0, 40, .5)"
 
 
-condition_one_value = "params.value >= 9"
+condition_one_value = "params.value >= 15"
 condition_two_value = "params.value != 'Week 1 23'"
+condition_three_value = "params.value >=2.6"
 
 formatter = {
     'Name': ('Name', {**PINLEFT, 'width': 70}),
     'Roster Position': ('Roster Position', {'width': 70}),
     'Game Info': ('Game Info', {'width': 70}),
-    'TeamAbbrev': ('Team', {'width': 70, 'cellStyle': agstyler.highlight(Color.RED_LIGHT.value,
-                                                                                   condition_two_value)}),
+    'TeamAbbrev': ('Team', {'width': 70}),
     'AvgPointsPerGame': ('Avg PPG', {'width': 70, 'cellStyle': agstyler.highlight(Color.GREEN_LIGHT.value,
                                                                                                                 condition_one_value)}),
     'Salary': ('Salary', {'width': 70}),
     'Pt_per_$1k (projected)': ('Pt_per_$1k (projected)', {'width': 70, 'cellStyle': agstyler.highlight(Color.GREEN_LIGHT.value,
-                                                                                                                condition_one_value)}),
-    'predRush_yds': ('Pred Rush Yds', {'width': 70, 'cellStyle': agstyler.highlight(Color.GREEN_LIGHT.value,
-                                                                                                                condition_one_value)}),
+                                                                                                                condition_three_value)}),
+    'predRush_yds': ('Pred Rush Yds', {'width': 70}),
     'predRushTD': ('Pred Rush TD', {'width': 70}),
     'predRec': ('Pred Rec', {'width': 70}),
     'predRec_yds': ('Pred Rec Yds', {'width': 70}),
     'predRec_TD': ('Pred Rec TD', {'width': 70}),
     'pred_standard': ('Pred Standard', {'width': 70}),
     'pred_halfPPR': ('Pred Half PPR', {'width': 70}),
-    'pred_PPR': ('Pred PPR', {'width': 70}),
-    'Last Observed Pts PPR': ('Last Observed Pts PPR', {'width': 70}),
-    'Last Observed Game Date': ('Last Observed Game Date', {'width': 70, 'cellStyle': agstyler.highlight(Color.GREEN_LIGHT.value,
+    'pred_PPR': ('Pred PPR', {'width': 70, 'cellStyle': agstyler.highlight(Color.GREEN_LIGHT.value,
                                                                                                                 condition_one_value)}),
+    'Last Observed Pts PPR': ('Last Observed Pts PPR', {'width': 70, 'cellStyle': agstyler.highlight(Color.GREEN_LIGHT.value,
+                                                                                                                condition_one_value)}),
+    'Last Observed Game Date': ('Last Observed Game Date', {'width': 70, 'cellStyle': agstyler.highlight(Color.Red_LIGHT.value,
+                                                                                                                condition_two_value)}),
     'RBrank': ('RB Rank PPR', {'width': 70}),
     'WRrank': ('WR Rank PPR', {'width': 70}),
     'TErank': ('TE Rank PPR', {'width': 70}),
