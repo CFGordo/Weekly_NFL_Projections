@@ -72,22 +72,21 @@ st.markdown("<p class='small-font'> Author= CFGordo </p>", unsafe_allow_html=Tru
 st.markdown("<p class='small-font'> Data= NFLverse, FFverse, Draftkings </p>", unsafe_allow_html=True)
 st.markdown("<p class='small-font'> Calculations= CFGordo </p>", unsafe_allow_html=True)
 st.text("")
-st.text("Caveats & Dissembling:"
-        ""
-        "* These projections are based primarily on volume. Vegas Lines and other measures of Team and Tlayer "
-        "strength are not factored in."
-        ""
-        "* These are meant as more of a baseline. They aren't adjusted for injuries to teammates, trades, "
-        "coaching changes, etc."
-        ""
-        "* The projections look back 8 weeks. For players who don't have 8 weeks of data (Rookies), missing data"
+st.text("Caveats & Dissembling:")
+st.text("")
+st.text("* These projections are based primarily on volume. Vegas Lines and other measures of Team and Tlayer "
+        "strength are not factored in.")
+st.text("")
+st.text("* These are meant as more of a baseline. They aren't adjusted for injuries to teammates, trades, "
+        "coaching changes, etc.")
+st.text("")
+st.text("* The projections look back 8 weeks. For players who don't have 8 weeks of data (Rookies), missing data"
         "is input as league average at their position. For this reason Rookies, and players with dramatic"
-        "changes in team or role will lag. Use your own knowledge of the league to determine where the "
-        "projections don't make sense."
-        ""
-        "* Some role players with a few spike weeks may be inflated. For this reason I've included the week"
-        "& season, and points scored of the last recorded game for each player."
-        ""
-        "* If the above notes haven't convinced you that these projections aren't all that sharp, allow me to"
+        "changes in team or role will lag. Use your own knowledge of the league when viewing")
+st.text("")
+st.text("* Some role players with a few spike weeks may be inflated. For this reason I've included the week"
+        "& season, and points scored of the last recorded game for each player.")
+st.text("")
+st.text("* If the above notes haven't convinced you that these projections aren't all that sharp, allow me to"
         "remove all doubt - These projections aren't all that sharp. For the love of God don't use these to gamble"
         "large sums of money.")
