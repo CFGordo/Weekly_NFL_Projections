@@ -74,7 +74,7 @@ st.markdown("<p class='small-font'> Calculations= CFGordo </p>", unsafe_allow_ht
 st.text("")
 st.write("Caveats & Dissembling:")
 st.write("")
-st.write("* These projections are based primarily on volume. Vegas Lines and other measures of Team and Tlayer "
+st.write("* These projections are based primarily on volume. Vegas Lines and other measures of Team and Player "
         "strength are not factored in.")
 st.write("")
 st.write("* These are meant as more of a baseline. They aren't adjusted for injuries to teammates, trades, "
