@@ -54,10 +54,10 @@ def color_green2(value):
 
 
 projections_db.set_index('Name', inplace=True)
-projections_db = projections_db.style.applymap(color__red, subset=['Last Observed Week.Season'], inplace=True)
-projections_db = projections_db.applymap(color_green2, subset=['pred_PPR', 'Last Observed Pts PPR', 'AvgPointsPerGame'],
+projections_db.style.applymap(color__red, subset=['Last Observed Week.Season'], inplace=True)
+projections_db.applymap(color_green2, subset=['pred_PPR', 'Last Observed Pts PPR', 'AvgPointsPerGame'],
                                  inplace=True)
-projections_db = projections_db.applymap(color_green, subset=['Pt_per_$1k (projected)'], inplace=True)
+projections_db.applymap(color_green, subset=['Pt_per_$1k (projected)'], inplace=True)
 zero = ['Salary', 'RBrank', 'WRrank', 'TErank', 'FLEXrank']
 one = ['AvgPointsPerGame', 'predRush_yds',
        'predRec', 'predRec_yds',  'pred_standard',
