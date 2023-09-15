@@ -25,7 +25,7 @@ class Color(Enum):
 
 
 condition_one_value = "params.value >= 15"
-condition_two_value = "params.value != 1.2023"
+condition_two_value = "params.value <> 1.2023"
 condition_three_value = "params.value >=2.6"
 
 formatter = {
