@@ -53,12 +53,11 @@ def color_green2(value):
         color = 'white'
 
 
-st.dataframe(projections_db.style.applymap(
+st.dataframe(projections_db.hide_index().style.applymap(
     color__red, subset=['Last Observed Week.Season']).applymap(color_green2,
                                                                subset=['pred_PPR',
                                                                        'Last Observed Pts PPR']).applymap(
-                                                                        color_green, subset=['Pt_per_$1k (projected)']),
-                                                                        hide_index=True)
+                                                                        color_green, subset=['Pt_per_$1k (projected)']))
 
 st.text("")
 st.markdown("<p class='small-font'> Author= CFGordo </p>", unsafe_allow_html=True)
