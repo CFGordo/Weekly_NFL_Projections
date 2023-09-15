@@ -58,8 +58,14 @@ projections_db = projections_db.style.applymap(color__red, subset=['Last Observe
 projections_db = projections_db.applymap(color_green2, subset=['pred_PPR', 'Last Observed Pts PPR', 'AvgPointsPerGame'],
                                  inplace=True)
 projections_db = projections_db.applymap(color_green, subset=['Pt_per_$1k (projected)'], inplace=True)
-
-st.dataframe(projections_db.round(2))
+zero = ['Salary', 'RBrank', 'WRrank', 'TErank', 'FLEXrank']
+one = ['AvgPointsPerGame', 'predRush_yds',
+       'predRec', 'predRec_yds',  'pred_standard',
+       'pred_halfPPR', 'pred_PPR', 'Last Observed Pts PPR']
+two = ['Pt_per_$1k (projected)', 'predRushTD', 'predRec_TD']
+projections_db.round(round({zero: 0, one: 1, two: 0}),inplace=True)
+projections_db.fillna('-', inplace=True)
+st.dataframe(projections_db)
 
 st.text("")
 st.markdown("<p class='small-font'> Author= CFGordo </p>", unsafe_allow_html=True)
