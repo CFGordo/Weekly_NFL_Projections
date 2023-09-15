@@ -1,6 +1,10 @@
 import pandas as pd
 import streamlit as st
 from st_aggrid import GridOptionsBuilder, AgGrid
+import agstyler
+from agstyler import PINLEFT, draw_grid
+from enum import Enum
+
 
 st.title("🏈 Weekly NFL Projections 🏈")
 
@@ -16,25 +20,50 @@ st.markdown("Here lies a table. And why not?")
 st.text("")
 st.markdown("Use the 'Filters' and 'Columns' buttons on the right of the table to filter"
             " your search.")
-gb = GridOptionsBuilder.from_dataframe(projections_db)
-gb.configure_side_bar()  # Add a sidebar
-gb.configure_selection('multiple', use_checkbox=True,
-                       groupSelectsChildren="Group checkbox select children")  # Enable multi-row selection
-gridOptions = gb.build()
+class Color(Enum):
+    GREEN_LIGHT = "rgb(0, 120, 60, .6)"
+    RED_LIGHT = "rgb(120, 0, 40, .5)"
 
-grid_response = AgGrid(
+
+condition_one_value = "params.value >= 9"
+condition_two_value = "params.value != 'Week 1 23'"
+
+formatter = {
+    'Name': ('Name', {**PINLEFT, 'width': 70}),
+    'Roster Position': ('Roster Position', {'width': 70}),
+    'Game Info': ('Game Info', {'width': 70}),
+    'TeamAbbrev': ('Team', {'width': 70, 'cellStyle': agstyler.highlight(Color.RED_LIGHT.value,
+                                                                                   condition_two_value)}),
+    'AvgPointsPerGame': ('Avg PPG', {'width': 70, 'cellStyle': agstyler.highlight(Color.GREEN_LIGHT.value,
+                                                                                                                condition_one_value)}),
+    'Salary': ('Salary', {'width': 70),
+    'Pt_per_$1k (projected)': ('Pt_per_$1k (projected)', {'width': 70, 'cellStyle': agstyler.highlight(Color.GREEN_LIGHT.value,
+                                                                                                                condition_one_value)}),
+    'predRush_yds': ('Pred Rush Yds', {'width': 70, 'cellStyle': agstyler.highlight(Color.GREEN_LIGHT.value,
+                                                                                                                condition_one_value)}),
+    'predRushTD': ('Pred Rush TD', {'width': 70}),
+    'predRec': ('Pred Rec', {'width': 70}),
+    'predRec_yds': ('Pred Rec Yds', {'width': 70}),
+    'predRec_TD': ('Pred Rec TD', {'width': 70}),
+    'pred_standard': ('Pred Standard', {'width': 70}),
+    'pred_halfPPR': ('Pred Half PPR', {'width': 70}),
+    'pred_PPR': ('Pred PPR', {'width': 70}),
+    'Last Observed Pts PPR': ('Last Observed Pts PPR', {'width': 70}),
+    'Last Observed Game Date': ('Last Observed Game Date', {'width': 70}, 'cellStyle': agstyler.highlight(Color.GREEN_LIGHT.value,
+                                                                                                                condition_one_value)}),
+    'RBrank': ('RB Rank PPR', {'width': 70}),
+    'WRrank': ('WR Rank PPR', {'width': 70}),
+    'TErank': ('TE Rank PPR', {'width': 70}),
+    'FLEXrank': ('FLEX Rank PPR', {'width': 70})
+}
+st.markdown("Select Season to Compare:")
+
+data = draw_grid(
     projections_db,
-    gridOptions=gridOptions,
-    data_return_mode='AS_INPUT',
-    update_mode='MODEL_CHANGED',
-    fit_columns_on_grid_load=False,
-    theme='dark',  # Add theme color to the table
-    enable_enterprise_modules=True,
-    height=350,
-    width='100%',
-    reload_data=False
+    formatter=formatter,
+    fit_columns=False,
+    selection='single',  # or 'single', or None
+    use_checkbox='True',  # or False by default
+    filterable=False,
+    max_height=400
 )
-
-data = grid_response['data']
-selected = grid_response['selected_rows']
-df = pd.DataFrame(selected)  # Pass the selected rows to a new dataframe df
