@@ -60,8 +60,10 @@ one = ['AvgPointsPerGame', 'predRush_yds',
        'pred_halfPPR', 'pred_PPR', 'Last Observed Pts PPR']
 two = ['Pt_per_$1k (projected)', 'predRushTD', 'predRec_TD']
 projections_db = projections_db.round({'Salary': 0, 'RBrank': 0, 'WRrank': 0, 'TErank': 0, 'FLEXrank': 0})
-projections_db = projections_db.round({one: 1})
-projections_db = projections_db.round({two: 2})
+projections_db = projections_db.round({'AvgPointsPerGame': 1, 'predRush_yds': 1,
+       'predRec': 1, 'predRec_yds': 1,  'pred_standard': 1,
+       'pred_halfPPR': 1, 'pred_PPR': 1, 'Last Observed Pts PPR': 1})
+projections_db = projections_db.round({'Pt_per_$1k (projected)': 2, 'predRushTD': 2, 'predRec_TD': 2})
 
 projections_db.fillna('-', inplace=True)
 st.dataframe(projections_db.style.applymap(color__red, subset=['Last Observed Week.Season']).applymap(color_green2, subset=['pred_PPR', 'Last Observed Pts PPR', 'AvgPointsPerGame']).applymap(color_green, subset=['Pt_per_$1k (projected)']))
