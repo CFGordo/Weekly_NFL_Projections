@@ -40,17 +40,19 @@ def color_green(value):
     return 'color: %s' % color
 
 
-def color_green2(value):
+def color_good(value):
     """
   Colors elements green
   """
 
     if value > 20:
         color = 'green'
-    elif value < 15:
-        color = 'light green'
+    elif value < 10:
+        color = 'violet'
     else:
         color = 'white'
+
+    return 'color: %s' % color
 
 
 projections_db.set_index('Name', inplace=True)
@@ -64,8 +66,7 @@ two = ['Pt_per_$1k (projected)', 'predRushTD', 'predRec_TD']
 #       'predRec': 1, 'predRec_yds': 1,  'pred_standard': 1,
 #       'pred_halfPPR': 1, 'pred_PPR': 1, 'Last Observed Pts PPR': 1})
 #projections_db = projections_db.round({'Pt_per_$1k (projected)': 2, 'predRushTD': 2, 'predRec_TD': 2})
-projections_db = projections_db.round(1)
-st.dataframe(projections_db.style.applymap(color__red, subset=['Last Observed Week.Season']).applymap(color_green2, subset=['pred_PPR', 'Last Observed Pts PPR', 'AvgPointsPerGame']).applymap(color_green, subset=['Pt_per_$1k (projected)']))
+st.dataframe(projections_db.style.applymap(color__red, subset=['Last Observed Week.Season']).applymap(color_good, subset=['pred_PPR', 'Last Observed Pts PPR', 'AvgPointsPerGame']).applymap(color_green, subset=['Pt_per_$1k (projected)']))
 
 st.text("")
 st.markdown("<p class='small-font'> Author= CFGordo </p>", unsafe_allow_html=True)
