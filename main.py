@@ -54,12 +54,12 @@ def color_green2(value):
 
 
 projections_db.set_index('Name', inplace=True)
-st.dataframe(projections_db.style.applymap(
-    color__red, subset=['Last Observed Week.Season']).applymap(color_green2,
-                                                               subset=['pred_PPR',
-                                                                       'Last Observed Pts PPR',
-                                                                       'AvgPointsPerGame']).applymap(
-                                                                        color_green, subset=['Pt_per_$1k (projected)']))
+projections_db = projections_db.style.applymap(color__red, subset=['Last Observed Week.Season'], inplace=True)
+projections_db = projections_db.applymap(color_green2, subset=['pred_PPR', 'Last Observed Pts PPR', 'AvgPointsPerGame'],
+                                 inplace=True)
+projections_db = projections_db.applymap(color_green, subset=['Pt_per_$1k (projected)'], inplace=True)
+
+st.dataframe(projections_db.round(2))
 
 st.text("")
 st.markdown("<p class='small-font'> Author= CFGordo </p>", unsafe_allow_html=True)
