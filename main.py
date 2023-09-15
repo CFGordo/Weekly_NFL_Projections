@@ -49,7 +49,7 @@ formatter = {
                                                                                                                 condition_one_value)}),
     'Last Observed Pts PPR': ('Last Observed Pts PPR', {'width': 70, 'cellStyle': agstyler.highlight(Color.GREEN_LIGHT.value,
                                                                                                                 condition_one_value)}),
-    'Last Observed Game Date': ('Last Observed Game Date', {'width': 70, 'cellStyle': agstyler.highlight(Color.Red_LIGHT.value,
+    'Last Observed Week.Season': ('Last Observed Week.Season', {'width': 70, 'cellStyle': agstyler.highlight(Color.Red_LIGHT.value,
                                                                                                                 condition_two_value)}),
     'RBrank': ('RB Rank PPR', {'width': 70}),
     'WRrank': ('WR Rank PPR', {'width': 70}),
