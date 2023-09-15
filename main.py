@@ -20,7 +20,7 @@ def color__red(value):
     if value != 1.2023:
         color = 'purple'
     else:
-        color = 'black'
+        color = 'white'
 
     return 'color: %s' % color
 
@@ -35,7 +35,7 @@ def color_green(value):
     elif value < 1.8:
         color = 'purple'
     else:
-        color = 'black'
+        color = 'white'
 
     return 'color: %s' % color
 
@@ -50,14 +50,15 @@ def color_green2(value):
     elif value < 15:
         color = 'lime'
     else:
-        color = 'black'
+        color = 'white'
 
 
 st.dataframe(projections_db.style.applymap(
     color__red, subset=['Last Observed Week.Season']).applymap(color_green2,
                                                                subset=['pred_PPR',
                                                                        'Last Observed Pts PPR']).applymap(
-                                                                        color_green, subset=['Pt_per_$1k (projected)']))
+                                                                        color_green, subset=['Pt_per_$1k (projected)']),
+                                                                        hide_index=True)
 
 st.text("")
 st.markdown("<p class='small-font'> Author= CFGordo </p>", unsafe_allow_html=True)
