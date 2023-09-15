@@ -13,6 +13,7 @@ projections_db = pd.read_csv(projections_db_csv)
 
 st.text("")
 
+st.dataframe(projections_db)
 
 st.text("")
 st.markdown("<p class='small-font'> Author= CFGordo </p>", unsafe_allow_html=True)
