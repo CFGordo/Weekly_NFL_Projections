@@ -60,6 +60,8 @@ one = ['AvgPointsPerGame', 'predRush_yds',
        'predRec', 'predRec_yds',  'pred_standard',
        'pred_halfPPR', 'pred_PPR', 'Last Observed Pts PPR']
 two = ['Pt_per_$1k (projected)', 'predRushTD', 'predRec_TD']
+for hero in zero:
+    projections_db[hero] = projections_db[hero].fillna(500)
 #projections_db = projections_db.round({'Salary': 0, 'RBrank': 0, 'WRrank': 0, 'TErank': 0, 'FLEXrank': 0})
 #projections_db = projections_db.round({'AvgPointsPerGame': 1, 'predRush_yds': 1,
 #       'predRec': 1, 'predRec_yds': 1,  'pred_standard': 1,
