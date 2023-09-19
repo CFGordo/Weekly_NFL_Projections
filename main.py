@@ -99,6 +99,7 @@ graph = dcc.Graph(id="my-graph", figure={})
 
 
 app = Dash(__name__)
+server = app.server
 app.layout = html.Div([graph, table])
 
 
