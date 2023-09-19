@@ -4,6 +4,7 @@
 dash==2.13.0
 dash-ag-grid==2.3.0
 plotly==5.9.0
-pandas==2.1.0
+pandas
+gunicorn
 
 
