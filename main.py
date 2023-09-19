@@ -4,13 +4,12 @@ import pandas as pd  # pip install pandas
 import plotly.express as px
 
 
-#projections_db_link = st.secrets["projections_db_url"]
-#projections_db_csv = projections_db_link.replace('/edit#gid=', '/export?format=csv&gid=')
-#df = pd.read_csv(projections_db_csv)
+projections_db_link = "https://docs.google.com/spreadsheets/d/1raHYUdtZp_Zepr_f4BlYP7uogedHFGoQ_YD9pRvq8qc/edit#gid=536297854"
+projections_db_csv = projections_db_link.replace('/edit#gid=', '/export?format=csv&gid=')
+df = pd.read_csv(projections_db_csv)
 
 
-
-df = pd.read_csv('C:/Users/chris/OneDrive/Documents/Fantasy_Football/weekly_expected_points/wk2_23_DK.csv')
+#df = pd.read_csv('C:/Users/chris/OneDrive/Documents/Fantasy_Football/weekly_expected_points/wk2_23_DK.csv')
 df[['RBrank', 'WRrank', 'TErank', 'FLEXrank']] = df[['RBrank', 'WRrank', 'TErank', 'FLEXrank']].fillna(500)
 
 cell_styles = {
