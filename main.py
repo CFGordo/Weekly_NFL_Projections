@@ -1,95 +1,123 @@
-import pandas as pd
-import streamlit as st
-import agstyler
-from agstyler import PINLEFT, draw_grid
-from enum import Enum
-
-st.title("🏈 Weekly NFL Projections 🏈")
-st.text("")
-
-projections_db_link = st.secrets["projections_db_url"]
-projections_db_csv = projections_db_link.replace('/edit#gid=', '/export?format=csv&gid=')
-projections_db = pd.read_csv(projections_db_csv)
+from dash import Dash, html, dcc, Input, Output  # pip install dash
+import dash_ag_grid as dag  # pip install dash-ag-grid
+import pandas as pd  # pip install pandas
+import plotly.express as px
 
 
-def color__red(value):
-    """
-  helper for non current observations.
-  """
+#projections_db_link = st.secrets["projections_db_url"]
+#projections_db_csv = projections_db_link.replace('/edit#gid=', '/export?format=csv&gid=')
+#df = pd.read_csv(projections_db_csv)
 
-    if value != 1.2023:
-        color = 'violet'
+
+
+df = pd.read_csv('C:/Users/chris/OneDrive/Documents/Fantasy_Football/weekly_expected_points/wk2_23_DK.csv')
+df[['RBrank', 'WRrank', 'TErank', 'FLEXrank']] = df[['RBrank', 'WRrank', 'TErank', 'FLEXrank']].fillna(500)
+
+cell_styles = {
+            # Set of rules
+            "styleConditions": [
+                {
+                    "condition": "params.value >=20",
+                    "style": {"color": "green"},
+                },
+                {
+                    "condition": "params.value <= 10",
+                    "style": {"color": "violet"},
+                },
+            ],
+        }
+cell_styles2 = {
+            # Set of rules
+            "styleConditions": [
+                {
+                    "condition": "params.value >=2.6",
+                    "style": {"color": "green"},
+                },
+                {
+                    "condition": "params.value <= 1.8",
+                    "style": {"color": "violet"},
+                },
+            ],
+        }
+cell_styles3 = {
+            # Set of rules
+            "styleConditions": [
+                {
+                    "condition": "params.value != 1.2023",
+                    "style": {"color": "violet"},
+                },
+            ],
+        }
+
+
+
+table = dag.AgGrid(
+    id="my-table",
+    rowData=df.to_dict("records"),                                                          # **need it
+    columnDefs=[
+        {"field": "Name", "pinned": 'left'},
+        {"field": "Roster Position"},
+        {"field": "Game Info"},
+        {"field": "TeamAbbrev"},
+        {"field": "AvgPointsPerGame", "filter": "agNumberColumnFilter",
+         "cellStyle": cell_styles,
+         "valueFormatter": {"function": "d3.format('.1f')(params.value)"}},
+        {"field": "Salary", "filter": "agNumberColumnFilter"},
+        {"field": "Pt_per_$1k (projected)", "filter": "agNumberColumnFilter", "cellStyle": cell_styles2,
+         "valueFormatter": {"function": "d3.format('.2f')(params.value)"}},
+        {"field": "predRush_yds", "filter": "agNumberColumnFilter",
+         "valueFormatter": {"function": "d3.format('.1f')(params.value)"}},
+        {"field": "predRushTD", "filter": "agNumberColumnFilter",
+         "valueFormatter": {"function": "d3.format('.2f')(params.value)"}},
+        {"field": "predRec", "filter": "agNumberColumnFilter",
+         "valueFormatter": {"function": "d3.format('.1f')(params.value)"}},
+        {"field": "predRec_yds", "filter": "agNumberColumnFilter",
+         "valueFormatter": {"function": "d3.format('.1f')(params.value)"}},
+        {"field": "predRec_TD", "filter": "agNumberColumnFilter",
+         "valueFormatter": {"function": "d3.format('.2f')(params.value)"}},
+        {"field": "pred_standard", "filter": "agNumberColumnFilter",
+         "valueFormatter": {"function": "d3.format('.1f')(params.value)"}},
+        {"field": "pred_halfPPR", "filter": "agNumberColumnFilter",
+         "valueFormatter": {"function": "d3.format('.1f')(params.value)"}},
+        {"field": "pred_PPR", "filter": "agNumberColumnFilter", "cellStyle": cell_styles,
+         "valueFormatter": {"function": "d3.format('.1f')(params.value)"}},
+        {"field": "Last Observed Pts PPR", "filter": "agNumberColumnFilter", "cellStyle": cell_styles,
+         "valueFormatter": {"function": "d3.format('.1f')(params.value)"}},
+        {"field": "Last Observed Week&Season", "filter": "agNumberColumnFilter", "cellStyle": cell_styles3,
+         "valueFormatter": {"function": "d3.format('.4f')(params.value)"}},
+        {"field": "RBrank", "filter": "agNumberColumnFilter"},
+        {"field": "WRrank", "filter": "agNumberColumnFilter"},
+        {"field": "TErank", "filter": "agNumberColumnFilter"},
+        {"field": "FLEXrank", "filter": "agNumberColumnFilter"},
+    ],                                          # **need it
+    defaultColDef={"resizable": True, "sortable": True, "filter": True, "minWidth":115},
+    columnSize="sizeToFit",
+    dashGridOptions={"pagination": False},
+    className="ag-theme-alpine-dark",  # https://dashaggrid.pythonanywhere.com/layout/themes
+)
+
+graph = dcc.Graph(id="my-graph", figure={})
+
+
+app = Dash(__name__)
+app.layout = html.Div([graph, table])
+
+
+@app.callback(Output("my-graph", "figure"), Input("my-table", "virtualRowData"))
+def display_cell_clicked_on(vdata):
+    if vdata:
+        dff = pd.DataFrame(vdata)
+        return px.scatter(dff, x="Salary", y="pred_PPR", color="Roster Position",
+                          color_discrete_map={'WR/FLEX': '#007BC7',
+                                              'RB/FLEX': '#C60C30',
+                                              'TE/FLEX': '#008f00'},
+                          hover_data=df[['Name', 'Salary', 'pred_PPR', 'Pt_per_$1k (projected)']])
     else:
-        color = 'white'
+        return px.scatter(df, x="Salary", y="pred_PPR", color="Roster Position",
+                          color_discrete_map={'WR/FLEX': '#007BC7',
+                                              'RB/FLEX': '#C60C30',
+                                              'TE/FLEX': '#008f00'},
+                          hover_data=df[['Name', 'Salary', 'pred_PPR', 'Pt_per_$1k (projected)']])
 
-    return 'color: %s' % color
-
-
-def color_green(value):
-    """
-  Colors elements green
-  """
-
-    if value > 2.6:
-        color = 'green'
-    elif value < 1.8:
-        color = 'violet'
-    else:
-        color = 'white'
-
-    return 'color: %s' % color
-
-
-def color_good(value):
-    """
-  Colors elements green
-  """
-
-    if value > 20:
-        color = 'green'
-    elif value < 10:
-        color = 'violet'
-    else:
-        color = 'white'
-
-    return 'color: %s' % color
-
-projections_db.set_index('Name', inplace=True)
-zero = ['Salary', 'RBrank', 'WRrank', 'TErank', 'FLEXrank']
-one = ['AvgPointsPerGame', 'predRush_yds',
-       'predRec', 'predRec_yds',  'pred_standard',
-       'pred_halfPPR', 'pred_PPR', 'Last Observed Pts PPR']
-two = ['Pt_per_$1k (projected)', 'predRushTD', 'predRec_TD']
-for hero in zero:
-    projections_db[hero] = projections_db[hero].fillna(500)
-#projections_db = projections_db.round({'Salary': 0, 'RBrank': 0, 'WRrank': 0, 'TErank': 0, 'FLEXrank': 0})
-#projections_db = projections_db.round({'AvgPointsPerGame': 1, 'predRush_yds': 1,
-#       'predRec': 1, 'predRec_yds': 1,  'pred_standard': 1,
-#       'pred_halfPPR': 1, 'pred_PPR': 1, 'Last Observed Pts PPR': 1})
-#projections_db = projections_db.round({'Pt_per_$1k (projected)': 2, 'predRushTD': 2, 'predRec_TD': 2})
-st.dataframe(projections_db.style.applymap(color__red, subset=['Last Observed Week.Season']).applymap(color_good, subset=['pred_PPR', 'Last Observed Pts PPR', 'AvgPointsPerGame']).applymap(color_green, subset=['Pt_per_$1k (projected)']).format(precision=0, subset = zero).format(precision=1, subset = one).format(precision=2, subset = two).format(precision=4, subset = ['Last Observed Week.Season']))
-
-st.text("")
-st.markdown("<p class='small-font'> Author= CFGordo </p>", unsafe_allow_html=True)
-st.markdown("<p class='small-font'> Data= NFLverse, FFverse, Draftkings </p>", unsafe_allow_html=True)
-st.markdown("<p class='small-font'> Calculations= CFGordo </p>", unsafe_allow_html=True)
-st.text("")
-st.write("Caveats & Dissembling:")
-st.write("")
-st.write("* These projections are based primarily on volume. Vegas Lines and other measures of Team and Player "
-        "strength are not factored in.")
-st.write("")
-st.write("* These are meant as more of a baseline. They aren't adjusted for injuries to teammates, trades, "
-        "coaching changes, etc.")
-st.write("")
-st.write("* The projections look back 8 weeks. For players who don't have 8 weeks of data (Rookies), missing data "
-        "is input as league average at their position. For this reason Rookies, and players with dramatic "
-        "changes in team or role will lag. Use your own knowledge of the league to determine whether you "
-         "feel a particular projection is off base.")
-st.write("")
-st.write("* Some role players with a few spike weeks may be inflated. For this reason I've included the week "
-        "& season, and points scored of the last recorded game for each player.")
-st.write("")
-st.write("* If the above notes haven't convinced you that these projections aren't all that sharp, allow me to "
-        "remove all doubt - These projections aren't all that sharp. For the love of God don't use them to gamble "
-        "large sums of money.")
+if __name__ == "__main__":
+    app.run_server(debug=True)

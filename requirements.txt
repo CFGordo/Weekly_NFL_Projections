@@ -2,5 +2,7 @@
 # requirements
 #
 pandas==1.4.2
-streamlit==1.11.1
-streamlit-aggrid==0.3.4
+dash==2.13.0
+dash-ag-grid==2.3.0
+plotly==5.9.0
+
