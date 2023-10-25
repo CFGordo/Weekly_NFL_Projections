@@ -4,7 +4,7 @@ import pandas as pd  # pip install pandas
 import plotly.express as px
 
 
-projections_db_link = 'https://docs.google.com/spreadsheets/d/1iMBOdBtZ2xZmLdFbozgqxO-nk89Aafr5yjLONyTHUuk/edit#gid=915388543'
+projections_db_link = 'https://docs.google.com/spreadsheets/d/1cvqN11YzbHD6EjJdE41zEsZ-afmpGWPn1fjw8gCDMs4/edit#gid=1873403355'
 projections_db_csv = projections_db_link.replace('/edit#gid=', '/export?format=csv&gid=')
 df = pd.read_csv(projections_db_csv)
 
