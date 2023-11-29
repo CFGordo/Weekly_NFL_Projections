@@ -20,7 +20,7 @@ cell_styles = {
                     "style": {"color": "green"},
                 },
                 {
-                    "condition": "params.value <= 13",
+                    "condition": "params.value <= 12",
                     "style": {"color": "violet"},
                 },
             ],
@@ -42,7 +42,7 @@ cell_styles3 = {
             # Set of rules
             "styleConditions": [
                 {
-                    "condition": "params.value != 9.2023",
+                    "condition": "params.value != 12.2023",
                     "style": {"color": "violet"},
                 },
             ],
