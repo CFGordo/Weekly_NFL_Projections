@@ -4,7 +4,7 @@ import pandas as pd  # pip install pandas
 import plotly.express as px
 
 
-projections_db_link = 'https://docs.google.com/spreadsheets/d/1QCB0MwPAHaW6FgDYKhPb-AtPHLKGaXr1YgweoonSLrY/edit#gid=1326491825'
+projections_db_link = 'https://docs.google.com/spreadsheets/d/1h-W-Oc3jlDAtUSDns9xqdc6WcJKAnWwJx1ulcApfdp4/edit#gid=1718966120'
 projections_db_csv = projections_db_link.replace('/edit#gid=', '/export?format=csv&gid=')
 df = pd.read_csv(projections_db_csv)
 
@@ -42,7 +42,7 @@ cell_styles3 = {
             # Set of rules
             "styleConditions": [
                 {
-                    "condition": "params.value != 15.2023",
+                    "condition": "params.value != 17.2023",
                     "style": {"color": "violet"},
                 },
             ],
